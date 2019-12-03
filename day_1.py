@@ -1,4 +1,5 @@
 import numpy as np
+import math
 
 mass_arr = np.array([51753,53456,128133,118219,136490,113318,134001,99775,
                     84746,68712,104274,72530,101517,65533,98719,100215,
@@ -14,5 +15,24 @@ mass_arr = np.array([51753,53456,128133,118219,136490,113318,134001,99775,
                     85321,119965,147313,105201,107107,130007,67834,137614,
                     140848,64038,106078,71447], dtype=int)
 
-
+'''
+Puzzle 1
+---------------------------------------
+'''
 print(int(np.sum(np.floor(mass_arr/3)-2)))
+
+def total_fuel(x, total=0):
+    fuel = math.floor(x/3)-2
+    if (fuel >= 0):
+        return total_fuel(fuel, fuel + total)
+    else:
+        return total
+    
+total_fuel_v = np.vectorize(total_fuel)
+
+
+'''
+Puzzle 2
+---------------------------------------
+'''
+print(np.sum(total_fuel_v(mass_arr)))
